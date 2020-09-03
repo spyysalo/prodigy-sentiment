@@ -3,5 +3,8 @@
     "project_info": ["dataset", "session", "label" ],
     "force_stream_order": true,
     "choice_auto_accept": true,
+    "history_size": 1,
+    "show_flag": true,
+    "instructions": "instructions.html",
     "global_css": ".before-context, .after-context { color: #CCC; font-size: 75% }"
 }
