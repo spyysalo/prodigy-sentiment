@@ -2,5 +2,6 @@
     "buttons": [ "accept", "ignore", "undo" ],
     "project_info": ["dataset", "session", "label" ],
     "force_stream_order": true,
-    "choice_auto_accept": true
+    "choice_auto_accept": true,
+    "global_css": ".before-context, .after-context { color: #CCC; font-size: 75% }"
 }
