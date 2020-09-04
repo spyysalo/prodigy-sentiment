@@ -49,10 +49,10 @@ def sentiment(dataset, file_path, annotator):
 def add_options(stream):
     # Helper function to add options to every task in a stream
     options = [
+        { 'id': 'neutral', 'text': '😶 Neutral' },
         { 'id': 'positive', 'text': '😀 Positive' },
         { 'id': 'negative', 'text': '🙁 Negative' },
-        { 'id': 'neither', 'text': '😶 Neither' },
-        { 'id': 'mixed', 'text': '🤨 Mixed' },
+        { 'id': 'other', 'text': '🤔 Other' },
     ]
     for task in stream:
         task['options'] = options
