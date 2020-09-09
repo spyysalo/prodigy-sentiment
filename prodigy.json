@@ -1,5 +1,6 @@
 {
     "buttons": [ "accept", "ignore", "undo" ],
+    "keymap": { "ignore": [] },
     "project_info": ["dataset", "session", "label" ],
     "force_stream_order": true,
     "choice_auto_accept": true,
