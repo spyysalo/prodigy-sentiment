@@ -25,3 +25,19 @@ git clone https://github.com/spyysalo/prodigy-tools.git
 ```
 ./export_all.sh
 ```
+
+## Combine exported annotations
+
+```
+COMBINED="combined-sentiment-annotations-`date '+%d%m%y'`.tsv"
+python3 combine.py db-exports/sentiment-{anna,atte,aurora,julia}.tsv > $COMBINED
+```
+
+## Filter combined annotations
+
+Only keep annotations with perfect or majority agreement on a label
+
+```
+COMBINED="combined-sentiment-annotations-`date '+%d%m%y'`.tsv"
+python3 disagreements.py --agreed $COMBINED | egrep '^(perfect|majority)' | cut -f 2- > filtered.tsv
+```
