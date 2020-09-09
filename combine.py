@@ -68,9 +68,14 @@ def main(argv):
         for a in annotators:
             fields.append(annotations_by_id[id_].get(a, '-'))
         print('\t'.join(fields))
+    total_by_annotator = Counter()
     for d in sorted(annotations_by_date.keys()):
         counts = [(a, annotations_by_date[d][a]) for a in annotators]
-        print(d, ' '.join('{}:{}'.format(a, c) for a, c in counts), file=sys.stderr)
+        print(d, '\t'.join('{}:{}'.format(a, c) for a, c in counts), file=sys.stderr)
+        for a in annotators:
+            total_by_annotator[a] += annotations_by_date[d][a]
+    print('TOTAL     ', '\t'.join('{}:{}'.format(a, t) for a, t in total_by_annotator.items()),
+          file=sys.stderr)
     return 0
 
 
