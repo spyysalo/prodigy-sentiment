@@ -1,6 +1,6 @@
 #!/bin/bash
 
-users="sampo"
+users="sampo aurora anna atte julia valtteri"
 
 port=8082
 
@@ -12,7 +12,7 @@ for user in $users; do
 
     export PRODIGY_PORT="$port"
     export PRODIGY_BASIC_AUTH_USER="$user"
-    export PRODIGY_BASIC_AUTH_PASS=sentiment
+    export PRODIGY_BASIC_AUTH_PASS=sentiment123
     python -m prodigy sentiment sentiment-"$user" docsample.jsonl "$user" \
 	   -F sentiment.py &
     sleep 3
