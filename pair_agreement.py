@@ -30,6 +30,15 @@ def load_header(fn, l):
     return annotators
 
 
+def remove_flags(annotations):
+    cleaned = []
+    for a in annotations:
+        if a.endswith('+FLAG'):
+            a = a[:-len('+FLAG')]
+        cleaned.append(a)
+    return cleaned
+
+
 def evaluate(fn, options):
     annotations_by_pair = defaultdict(list)
     ignored, total = 0, 0
@@ -41,6 +50,7 @@ def evaluate(fn, options):
             fields = l.split('\t')
             id_, text, majority, agreement = fields[:4]
             annotations = fields[4:]
+            annotations = remove_flags(annotations)
             if len(annotators) != len(annotations):
                 raise ValueError('{} line {}: {}'.format(fn, ln, l))
             for i in range(len(annotations)):
