@@ -17,5 +17,5 @@ prodigy stats -l -NF \
     python -m prodigy db-out "$d" > "$o"
     c="$OUTDIR/$d.tsv"
     echo "Converting $o to $c"
-    python3 prodigy-tools/jsonl2tsv.py --include-ignore "$o" > "$c"
+    python3 prodigy-tools/jsonl2tsv.py --mark-flagged --include-ignore "$o" > "$c"
 done
