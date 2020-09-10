@@ -23,6 +23,15 @@ def agreement(annotations):
     return sum(1 for a in annotations if a == m)/len(annotations)
 
 
+def remove_flags(annotations):
+    cleaned = []
+    for a in annotations:
+        if a.endswith('+FLAG'):
+            a = a[:-len('+FLAG')]
+        cleaned.append(a)
+    return cleaned
+
+
 def print_disagreements(fn, options):
     ignored, total = 0, 0
     with open(fn) as f:
@@ -31,6 +40,7 @@ def print_disagreements(fn, options):
             l = l.rstrip('\n')
             fields = l.split('\t')
             annotations = fields[4:]
+            annotations = remove_flags(annotations)
             if '-' in annotations or '-IGNORE-' in annotations:
                 ignored += 1
             elif agreement(annotations) == 1:
