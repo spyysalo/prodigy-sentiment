@@ -17,6 +17,15 @@ def argparser():
     return ap
 
 
+def remove_flags(annotations):
+    cleaned = []
+    for a in annotations:
+        if a.endswith('+FLAG'):
+            a = a[:-len('+FLAG')]
+        cleaned.append(a)
+    return cleaned
+
+
 def load_annotations(fn, text_by_id, annotations_by_id, annotations_by_date):
     with open(fn) as f:
         for ln, l in enumerate(f, start=1):
@@ -39,15 +48,17 @@ def load_annotations(fn, text_by_id, annotations_by_id, annotations_by_date):
 
 
 def most_common(annotations):
+    annotations = remove_flags(annotations)
     if not annotations:
         return '-'
     else:
-        return Counter(annotations.values()).most_common(1)[0][0]
+        return Counter(annotations).most_common(1)[0][0]
 
 
 def agreement(annotations):
+    annotations = remove_flags(annotations)
     m = most_common(annotations)
-    return sum(1 for a, l in annotations.items() if l == m)/len(annotations)
+    return sum(1 for a in annotations if a == m)/len(annotations)
 
 
 def main(argv):
@@ -63,8 +74,8 @@ def main(argv):
     print('\t'.join(['ID', 'text', 'majority', 'agreement'] + annotators))
     for id_, text in text_by_id.items():
         fields = [id_, text]
-        fields.append(most_common(annotations_by_id[id_]))
-        fields.append(str(agreement(annotations_by_id[id_])))
+        fields.append(most_common(annotations_by_id[id_].values()))
+        fields.append(str(agreement(annotations_by_id[id_].values())))
         for a in annotators:
             fields.append(annotations_by_id[id_].get(a, '-'))
         print('\t'.join(fields))
